@@ -68,7 +68,6 @@ if (isset($_POST["login"]) && !empty($_POST["login"]) && isset($_POST["password"
                             <fieldset>
                                 <?php
                                     if (!isset($_POST["login"]) && !isset($_POST["password"]) ) {
-                                        echo "case 1";
                                         echo '<div class="form-group">
                                                 <input class="form-control" placeholder="Login ID" name="login" type="login" autofocus>
                                               </div>
@@ -77,7 +76,6 @@ if (isset($_POST["login"]) && !empty($_POST["login"]) && isset($_POST["password"
                                               </div>';
                                     }else {
                                         if (empty($_POST["login"]) && empty($_POST["password"])){ 
-                                            echo "case 2";
                                             echo '<div class="form-group has-error">
                                                     <label class="control-label" for="inputError">Login can\'t be empty</label>
                                                     <input class="form-control" placeholder="Login ID" name="login" type="login" autofocus>
@@ -87,7 +85,6 @@ if (isset($_POST["login"]) && !empty($_POST["login"]) && isset($_POST["password"
                                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                                   </div>';
                                         }else if (!empty($_POST["login"]) && empty($_POST["password"])){ 
-                                            echo "case 3";
                                             echo '<div class="form-group">
                                                     <input class="form-control" placeholder="Login ID" name="login" type="login" value='.$_POST["login"].'>
                                                   </div>
@@ -96,7 +93,6 @@ if (isset($_POST["login"]) && !empty($_POST["login"]) && isset($_POST["password"
                                                     <input class="form-control" placeholder="Password" name="password" type="password" value="" autofocus>
                                                   </div>';
                                         }else if (empty($_POST["login"]) && !empty($_POST["password"])){ 
-                                            echo "case 4";
                                             echo '<div class="form-group has-error">
                                                     <label class="control-label" for="inputError">Login can\'t be empty</label>
                                                     <input class="form-control" placeholder="Login ID" name="login" type="login" autofocus>

@@ -2,7 +2,7 @@
 session_start();
 
 if( isset($_SESSION["cms_user"])){
-    header('Location: ./homepage.php');
+    header('Location: ./addvalue.php');
     exit();
 }else{
     header('Location: ./login.php');

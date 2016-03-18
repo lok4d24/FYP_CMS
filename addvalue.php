@@ -11,7 +11,11 @@ if( !isset($_SESSION["cms_user"])){
 <html lang="en">
 
 <head>
-
+<style>
+td {
+    text-align: center;
+}
+</style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,14 +30,14 @@ if( !isset($_SESSION["cms_user"])){
     <!-- MetisMenu CSS -->
     <link href="./bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="./bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="./bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    <!-- Timeline CSS -->
+    <link href="./dist/css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="./dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="./bower_components/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -93,66 +97,49 @@ if( !isset($_SESSION["cms_user"])){
             </div>
         </nav>
 <!-- ======================================================================================================== -->
+        
+
         <div id="page-wrapper">
             <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Carparks Information</h1>
-                </div>
-            </div>
+                <div class="col-lg-5">
+                    <h1 class="page-header">增值服務</h1>
+                    
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>會員名稱</th>
+                                <th>登入名稱</th>
+                                <th>餘額</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $link = mysql_connect("localhost","root","12345678") or die("Could not connect to MySQL server");
+                            mysql_query("SET NAMES utf8"); 
+                            mysql_select_db("fyp", $link) or die("Could not select database");
+                            $query = "select * from member";
+                            $result = mysql_query($query);
+                            while ($row = mysql_fetch_assoc($result)) {
+                                echo '<tr>
+                                          <td>
+                                            <a href="http://localhost/cms/edit_value.php?member='.$row['id'].'" 
+                                                onclick="javascript:void window.open(\'http://localhost/cms/edit_value.php?member='.$row['id'].'\',\'testing\',\'width=700,height=500,toolbar=0,menubar=0,location=0,status=0,scrollbars=0,resizable=1,left=0,top=0\');return false;" class="btn btn-outline btn-warning">增值</a>
+                                          </td>
+                                          <td>'.$row['name_zh'].'</td>
+                                          <td>'.$row['login'].'</td>
+                                          <td>'.$row['value'].'</td>
+                                      </tr>';
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Name (chi.)</th>
-                                            <th>Telephone</th>
-                                            <th>Latitude</th>
-                                            <th>Longitude</th>
-                                            <th>District</th>
-                                            <th>Area</th>
-                                            <th>Address</th>
-                                            <th>Hourly Fee</th>
-                                            <th>Monthly Fee</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                        $link = mysql_connect("localhost","root","12345678") or die("Could not connect to MySQL server");
-                                        mysql_query("SET NAMES utf8"); 
-                                        mysql_select_db("fyp", $link) or die("Could not select database");
-                                        $query = "select * from carpark";
-                                        $result = mysql_query($query);
-                                        while ($row = mysql_fetch_assoc($result)) {
-                                            echo '<tr>
-                                                      <td><a href="http://google.com" class="btn btn-outline btn-warning">EDIT</a></td>
-                                                      <td>'.$row['name_zh'].'</td>
-                                                      <td>'.$row['telephone'].'</td>
-                                                      <td>'.$row['lat'].'</td>
-                                                      <td>'.$row['long'].'</td>
-                                                      <td>'.$row['district_code'].'</td>
-                                                      <td>'.$row['area_code'].'</td>
-                                                      <td>'.$row['addr_zh'].'</td>
-                                                      <td>'.$row['hourly_price'].'</td>
-                                                      <td>'.$row['monthly_price'].'</td>
-                                                  </tr>';
-
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                    
                 </div>
-            </div>          
+            </div>            
         </div>
     </div>
-
 
     <!-- jQuery -->
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
