@@ -2,7 +2,7 @@
 session_start();
 
 if( isset($_SESSION["cms_user"])){
-    header('Location: ./addvalue.php');
+    header('Location: ./member.php');
     exit();
 }else{
     header('Location: ./login.php');
@@ -14,7 +14,7 @@ if( isset($_SESSION["cms_user"])){
 <html>
 <head>
 <!--<meta http-equiv="refresh" content="0;url=pages/index.html">-->
-<title>City Carpark CMS</title>
+<title>城市停車場内容管理系统</title>
     
 </head>
 <body>

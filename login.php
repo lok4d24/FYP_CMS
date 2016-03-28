@@ -31,7 +31,7 @@ if (isset($_POST["login"]) && !empty($_POST["login"]) && isset($_POST["password"
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>City Carpark CMS</title>
+    <title>城市停車場内容管理系统</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -61,7 +61,7 @@ if (isset($_POST["login"]) && !empty($_POST["login"]) && isset($_POST["password"
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Log In</h3>
+                        <h3 class="panel-title">請登入</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="login.php" method="post">
@@ -69,52 +69,52 @@ if (isset($_POST["login"]) && !empty($_POST["login"]) && isset($_POST["password"
                                 <?php
                                     if (!isset($_POST["login"]) && !isset($_POST["password"]) ) {
                                         echo '<div class="form-group">
-                                                <input class="form-control" placeholder="Login ID" name="login" type="login" autofocus>
+                                                <input class="form-control" placeholder="登入帳號" name="login" type="login" autofocus>
                                               </div>
                                               <div class="form-group">
-                                                <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                                <input class="form-control" placeholder="密碼" name="password" type="password" value="">
                                               </div>';
                                     }else {
                                         if (empty($_POST["login"]) && empty($_POST["password"])){ 
                                             echo '<div class="form-group has-error">
-                                                    <label class="control-label" for="inputError">Login can\'t be empty</label>
-                                                    <input class="form-control" placeholder="Login ID" name="login" type="login" autofocus>
+                                                    <label class="control-label" for="inputError">登入帳號不能留空</label>
+                                                    <input class="form-control" placeholder="登入帳號" name="login" type="login" autofocus>
                                                   </div>
                                                   <div class="form-group has-error">
-                                                    <label class="control-label" for="inputError">Password can\'t be empty</label>
-                                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                                    <label class="control-label" for="inputError">密碼不能留空</label>
+                                                    <input class="form-control" placeholder="密碼" name="password" type="password" value="">
                                                   </div>';
                                         }else if (!empty($_POST["login"]) && empty($_POST["password"])){ 
                                             echo '<div class="form-group">
-                                                    <input class="form-control" placeholder="Login ID" name="login" type="login" value='.$_POST["login"].'>
+                                                    <input class="form-control" placeholder="登入帳號" name="login" type="login" value='.$_POST["login"].'>
                                                   </div>
                                                   <div class="form-group has-error">
-                                                    <label class="control-label" for="inputError">Password can\'t be empty</label>
-                                                    <input class="form-control" placeholder="Password" name="password" type="password" value="" autofocus>
+                                                    <label class="control-label" for="inputError">密碼不能留空</label>
+                                                    <input class="form-control" placeholder="密碼" name="password" type="password" value="" autofocus>
                                                   </div>';
                                         }else if (empty($_POST["login"]) && !empty($_POST["password"])){ 
                                             echo '<div class="form-group has-error">
-                                                    <label class="control-label" for="inputError">Login can\'t be empty</label>
-                                                    <input class="form-control" placeholder="Login ID" name="login" type="login" autofocus>
+                                                    <label class="control-label" for="inputError">登入帳號不能留空</label>
+                                                    <input class="form-control" placeholder="登入帳號" name="login" type="login" autofocus>
                                                   </div>
                                                   <div class="form-group">
-                                                    <input class="form-control" placeholder="Password" name="password" type="password" value='.$_POST["password"].'>
+                                                    <input class="form-control" placeholder="密碼" name="password" type="password" value='.$_POST["password"].'>
                                                   </div>';
                                         }else{
                                             echo '<div class="form-group has-error">
-                                                    <label class="control-label" for="inputError">Login/Password did\'t match</label>
+                                                    <label class="control-label" for="inputError">登入帳號/密碼不正確</label>
                                                   </div>';
                                             echo '<div class="form-group">
-                                                    <input class="form-control" placeholder="Login ID" name="login" type="login" autofocus>
+                                                    <input class="form-control" placeholder="登入帳號" name="login" type="login" autofocus>
                                                   </div>
                                                   <div class="form-group">
-                                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                                    <input class="form-control" placeholder="密碼" name="password" type="password" value="">
                                                   </div>';   
                                         }
                                     }
                                 ?>                                
 								</br>
-                                <input type="submit" value="submit" class="btn btn-lg btn-success btn-block">
+                                <input type="submit" value="登入" class="btn btn-lg btn-success btn-block">
                             </fieldset>
                         </form>
                     </div>

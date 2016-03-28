@@ -6,19 +6,19 @@ if( !isset($_SESSION["cms_user"])){
     exit();
 }
 
-if( isset($_POST["delete"])){
-    $link = mysql_connect("localhost","root","12345678") or die("Could not connect to MySQL server");
-    mysql_query("SET NAMES utf8"); 
-    mysql_select_db("fyp", $link) or die("Could not select database");
-    $id = $_POST["delete"];
-    $query = "delete from carpark where id='$id'";
-    $result = mysql_query($query);
-    $num_rows =  mysql_affected_rows();
-    if ($num_rows > 0 )
-        echo "<script>window.alert(\"刪除成功!\");</script>";
-    else
-        echo "<script>window.alert(\"刪除失敗!\");</script>";
-}
+//if( isset($_POST["delete"])){
+//    $link = mysql_connect("localhost","root","12345678") or die("Could not connect to MySQL server");
+//    mysql_query("SET NAMES utf8"); 
+//    mysql_select_db("fyp", $link) or die("Could not select database");
+//    $id = $_POST["delete"];
+//    $query = "delete from carpark where id='$id'";
+//    $result = mysql_query($query);
+//    $num_rows =  mysql_affected_rows();
+//    if ($num_rows > 0 )
+//        echo "<script>window.alert(\"刪除成功!\");</script>";
+//    else
+//        echo "<script>window.alert(\"刪除失敗!\");</script>";
+//}
 
 ?>
 
@@ -88,15 +88,9 @@ form {
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>名稱</th>
-                                            <th>電話</th>
-                                            <th>經度</th>
-                                            <th>緯度</th>
-                                            <th>地區</th>
-                                            <th>區域</th>
-                                            <th>地址</th>
-                                            <th>時租</th>
-                                            <th>月租</th>
+                                            <th>編號</th>
+                                            <th>問題</th>
+                                            <th>答案</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -104,31 +98,23 @@ form {
                                         $link = mysql_connect("localhost","root","12345678") or die("Could not connect to MySQL server");
                                         mysql_query("SET NAMES utf8"); 
                                         mysql_select_db("fyp", $link) or die("Could not select database");
-                                        $query = "select * from carpark, district, area where carpark.district_code = district.district_code and carpark.area_code = area.area_code";
+                                        $query = "select * from faq";
                                         $result = mysql_query($query);
                                         while ($row = mysql_fetch_assoc($result)) {
                                             echo '<tr>
                                                       <td>
-                                                        <form action="http://localhost/cms/edit_carpark.php" method="post">
-                                                           <input type="hidden" name="carpark_name" value="'.$row['name_zh'].'">
-                                                           <button class="btn btn-outline btn-primary" type="submit" name="carpark" value="'.$row['id'].'">編輯</button>
+                                                        <form action="http://localhost/cms/edit_faq.php" method="post">
+                                                           <button class="btn btn-outline btn-primary" type="submit" name="faq" value="'.$row['id'].'">編輯</button>
                                                         </form>
                                                         
-                                                        <form onsubmit="return confirm(\'確定刪除?\');" action="http://localhost/cms/carpark.php" method="post">
+                                                        <form onsubmit="return confirm(\'確定刪除?\');" action="http://localhost/cms/faq.php" method="post">
                                                             <button class="btn btn-outline btn-danger" type="submit" name="delete" value="'.$row['id'].'">刪除</button>
                                                         </form>
                                                       </td>
-                                                      <td>'.$row['name_zh'].'</td>
-                                                      <td>'.$row['telephone'].'</td>
-                                                      <td>'.$row['longi'].'</td>
-                                                      <td>'.$row['lat'].'</td>
-                                                      <td>'.$row['area_name_zh'].'</td>
-                                                      <td>'.$row['district_name_zh'].'</td>
-                                                      <td>'.$row['addr_zh'].'</td>
-                                                      <td>'.$row['hourly_price'].'</td>
-                                                      <td>'.$row['monthly_price'].'</td>
+                                                      <td align="center">'.$row['id'].'</td>
+                                                      <td>'.$row['question'].'</td>
+                                                      <td>'.$row['answer'].'</td>
                                                   </tr>';
-
                                         }
                                         ?>
                                     </tbody>
