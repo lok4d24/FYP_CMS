@@ -6,19 +6,19 @@ if( !isset($_SESSION["cms_user"])){
     exit();
 }
 
-//if( isset($_POST["delete"])){
-//    $link = mysql_connect("localhost","root","12345678") or die("Could not connect to MySQL server");
-//    mysql_query("SET NAMES utf8"); 
-//    mysql_select_db("fyp", $link) or die("Could not select database");
-//    $id = $_POST["delete"];
-//    $query = "delete from carpark where id='$id'";
-//    $result = mysql_query($query);
-//    $num_rows =  mysql_affected_rows();
-//    if ($num_rows > 0 )
-//        echo "<script>window.alert(\"刪除成功!\");</script>";
-//    else
-//        echo "<script>window.alert(\"刪除失敗!\");</script>";
-//}
+if( isset($_POST["delete"])){
+    $link = mysql_connect("localhost","root","12345678") or die("Could not connect to MySQL server");
+    mysql_query("SET NAMES utf8"); 
+    mysql_select_db("fyp", $link) or die("Could not select database");
+    $id = $_POST["delete"];
+    $query = "delete from faq where id='$id'";
+    $result = mysql_query($query);
+    $num_rows =  mysql_affected_rows();
+    if ($num_rows > 0 )
+        echo "<script>window.alert(\"刪除成功!\");</script>";
+    else
+        echo "<script>window.alert(\"刪除失敗!\");</script>";
+}
 
 ?>
 
@@ -29,6 +29,10 @@ if( !isset($_SESSION["cms_user"])){
 <style>
 form {
     display: inline-block;
+}
+    
+#new {
+    float: right;
 }
 </style>
 
@@ -75,7 +79,11 @@ form {
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">停車場資料</h1>
+                    <h1 class="page-header">FAQ
+                    <form action="http://localhost/cms/new_faq.php" method="post" id="new">
+                       <button class="btn btn-primary" type="submit" name="new" >新增問題</button>
+                    </form>
+                    </h1>
                 </div>
             </div>
 
@@ -98,7 +106,7 @@ form {
                                         $link = mysql_connect("localhost","root","12345678") or die("Could not connect to MySQL server");
                                         mysql_query("SET NAMES utf8"); 
                                         mysql_select_db("fyp", $link) or die("Could not select database");
-                                        $query = "select * from faq";
+                                        $query = "select * from faq order by id";
                                         $result = mysql_query($query);
                                         while ($row = mysql_fetch_assoc($result)) {
                                             echo '<tr>

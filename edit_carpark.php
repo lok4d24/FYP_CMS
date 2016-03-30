@@ -17,38 +17,21 @@ if (isset($_POST["submit"])){
     $long = $_POST['long'];
     $lat = $_POST['lat'];
     $area = $_POST['area'];
-    $district = $_POST['district'];
     $addr = $_POST['addr'];
     $hr = $_POST['hr'];
     $month = $_POST['month'];
-    
-//    echo $name;
-//    echo ' ';
-//    echo $carpark;
-//    echo ' ';
-//    echo $tel;
-//    echo ' ';
-//    echo $long;
-//    echo ' ';
-//    echo $lat;
-//    echo ' ';
-//    echo $area;
-//    echo ' ';
-//    echo $district;
-//    echo ' ';
-//    echo $addr;
-//    echo ' ';
-//    echo $hr;
-//    echo ' ';
-//    echo $month;
 
     if( empty($_POST["carpark"]) || empty($_POST["tel"]) || empty($_POST['name']) ||
         empty($_POST["long"]) || empty($_POST["lat"]) || 
-        empty($_POST["area"]) || empty($_POST["district"]) || 
+        empty($_POST["area"]) || 
         empty($_POST["addr"]) || empty($_POST["hr"]) || empty($_POST["month"]) ){
         echo "<script>window.alert(\"請場寫所有項目\");</script>";
     }else{
-        $query = "update carpark set name_zh='$name', telephone='$tel', lat='$lat', longi='$long', district_code='$district', area_code='$area', addr_zh='$addr', hourly_price='$hr', monthly_price='$month' where id=$carpark"; 
+        $district_area = explode("_", $area);
+        $real_district = $district_area[0];
+        $real_area = $district_area[1];
+        
+        $query = "update carpark set name_zh='$name', telephone='$tel', lat='$lat', longi='$long', district_code='$real_district', area_code='$real_area', addr_zh='$addr', hourly_price='$hr', monthly_price='$month' where id=$carpark"; 
         
         $result = mysql_query($query);
         $count = mysql_affected_rows();
@@ -175,31 +158,18 @@ if( isset($_POST['carpark']) && is_numeric($_POST['carpark']) ){
                                     $query = "select * from area";
                                     $result = mysql_query($query);
                                     while ($row = mysql_fetch_assoc($result)) {
-                                        if ($area == $row['area_code']){
-                                            echo '<option value='.$row['area_code'].' selected>'.$row['area_name_zh'].'</option>';
-                                        }else{
-                                            echo '<option value='.$row['area_code'].' >'.$row['area_name_zh'].'</option>';
+                                        echo '<optgroup label='.$row['area_name_zh'].'>';
+                                        $thisArea = $row["area_code"];
+                                        $query2 = "select * from district where area_code='$thisArea'";
+                                        $result2 = mysql_query($query2);
+                                        while ($row2 = mysql_fetch_assoc($result2)) {
+                                            if ($district == $row2['district_code']){
+                                                echo '<option value='.$row2['district_code'].'_'.$row2['area_code'].' selected>'.$row2['district_name_zh'].'</option>';
+                                            }else{
+                                                echo '<option value='.$row2['district_code'].'_'.$row2['area_code'].' >'.$row2['district_name_zh'].'</option>';
+                                            }
                                         }
-                                    }
-                            ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>區域</label>
-                            <select class="form-control" name="district">
-                            <?php 
-                                    $link = mysql_connect("localhost","root","12345678") or die("Could not connect to MySQL server");
-                                    mysql_query("SET NAMES utf8"); 
-                                    mysql_select_db("fyp", $link) or die("Could not select database");
-                                    $query = "select * from district";
-                                    $result = mysql_query($query);
-                                    while ($row = mysql_fetch_assoc($result)) {
-                                        if ($district == $row['district_code']){
-                                            echo '<option value='.$row['district_code'].' selected>'.$row['district_name_zh'].'</option>';
-                                        }else{
-                                            echo '<option value='.$row['district_code'].' >'.$row['district_name_zh'].'</option>';
-                                        }
+                                        echo '</optgroup>';
                                     }
                             ?>
                             </select>
@@ -229,6 +199,7 @@ if( isset($_POST['carpark']) && is_numeric($_POST['carpark']) ){
                         <input type="hidden" name="carpark" value=<?php echo $_POST['carpark']?> >
                         <input type="submit" value="確認" name="submit" class="btn btn-lg btn-success"> 
                     </form>
+                    <br>
                 </div>
             </div>            
         </div>
